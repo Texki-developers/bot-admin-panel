@@ -62,10 +62,13 @@ export default function SecretCodeForm({ onClose }: { onClose: any }) {
           required: "This field is required",
         })}
         errorMessage={errors?.expiryTime?.message}
-        type="date"
+        type="datetime-local"
         required
       />
-      <Button isLoading={status === 'loading'} onClick={handleSubmit(onFormSubmission)}>
+      <Button
+        isLoading={status === "loading"}
+        onClick={handleSubmit(onFormSubmission)}
+      >
         Submit
       </Button>
     </VStack>

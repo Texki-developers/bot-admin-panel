@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { logout } from "../../features/manageAuth/manageAuthSlice";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ export default function PasswordProtectedRoute() {
 
   const [isValid, setValidity] = useState<boolean>(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkUserAuthenticated();
   }, []);
 
