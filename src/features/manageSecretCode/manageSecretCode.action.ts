@@ -23,7 +23,7 @@ export const createSecretCode = createAsyncThunk<
     }
 })
 
-export const getSecretCode = createAsyncThunk('secret-code/get', async (req, {rejectWithValue}) => {
+export const getSecretCode = createAsyncThunk('secret-code/get', async (_, {rejectWithValue}) => {
     try{
         const {data:{data}} = await axiosInstance.get('secret/token')
         

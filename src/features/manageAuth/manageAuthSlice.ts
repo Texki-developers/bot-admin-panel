@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IAuthState, ILoginReturn, IRegisterReturn } from "../../types/features/auth.types";
-import { adminLogin, adminLogout, adminRegister } from "./manageAuthAction";
+import { IAuthState, ILoginReturn } from "../../types/features/auth.types";
+import { adminLogin, adminLogout } from "./manageAuthAction";
 
 const initialState: IAuthState = {
   error: false,

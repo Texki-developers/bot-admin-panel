@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../hooks/useAppSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { logout } from "../../features/manageAuth/manageAuthSlice";
 import { Outlet, useNavigate } from "react-router-dom";
-import { validateJWTExpiration } from "../../utils/validateJWTExpiration/validateJWTExpiration";
 import { axiosInstance } from "../../app/axiosInstance";
 
 export default function PasswordProtectedRoute() {
@@ -17,16 +15,21 @@ export default function PasswordProtectedRoute() {
   }, []);
 
   const checkUserAuthenticated = async () => {
-    const data = await axiosInstance.post("user/admin/check");
-    console.log(data);
+    try {
+      const data = await axiosInstance.get("user/admin/check");
 
-    // if (valid) {
-    //   setValidity(true);
-    // } else {
-    //   dispatch(logout());
-    //   setValidity(false);
-    //   navigate("/login");
-    // }
+      if (data?.data?.status) {
+        setValidity(true);
+      } else {
+        dispatch(logout());
+        setValidity(false);
+        navigate("/login");
+      }
+    } catch (err) {
+      dispatch(logout());
+      setValidity(false);
+      navigate("/login");
+    }
   };
   return <>{isValid && <Outlet />}</>;
 }

@@ -3,7 +3,6 @@ import {
   Button,
   Heading,
   Hide,
-  Image,
   Link,
   VStack,
 } from "@chakra-ui/react";
