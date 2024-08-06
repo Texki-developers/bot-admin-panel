@@ -11,7 +11,7 @@ export default function PasswordProtectedRoute() {
   const [isValid, setValidity] = useState<boolean>(true);
 
   useLayoutEffect(() => {
-    checkUserAuthenticated();
+    // checkUserAuthenticated();
   }, []);
 
   const checkUserAuthenticated = async () => {
