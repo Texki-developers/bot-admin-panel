@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { validateAuthToken } from '../utils/validateJWT/validateJWT';
 
 export const axiosInstance = axios.create({
   baseURL: 'https://api.apescommunity.com/v2/',
@@ -7,8 +8,7 @@ export const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache',
-  },
-  withCredentials: true
+  }
 });
 
-// axiosInstance.interceptors.request.use(validateAuthToken);
+axiosInstance.interceptors.request.use(validateAuthToken);

@@ -10,7 +10,7 @@ export let adminLogin = createAsyncThunk<
   async (req, { rejectWithValue }) => {
     try {
       const { data: response } = await axiosInstance.post('user/admin/login', req.body);
-      let data = { message: response.message };
+      let data = { token: response.data.token, message: response.message };
       return data as ILoginReturn
     } catch (error: any) {
 

@@ -14,6 +14,7 @@ export type IAuthState = {
   loading: boolean;
   status: 'idle' | 'success' | 'error' | 'loading';
   message: string | null;
+  token: string | null;
 }
 
 // Declare the type of login body
@@ -25,6 +26,7 @@ export type ILoginBody = {
 // Declare the type of login return
 export type ILoginReturn = {
   message: string;
+  token: string;
 }
 
 // Declare the type of register body

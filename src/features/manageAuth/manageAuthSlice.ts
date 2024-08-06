@@ -2,11 +2,14 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IAuthState, ILoginReturn } from "../../types/features/auth.types";
 import { adminLogin, adminLogout } from "./manageAuthAction";
 
+let token: string | null = localStorage.getItem('token') || null
+
 const initialState: IAuthState = {
   error: false,
   loading: false,
   status: 'idle',
   message: null,
+  token
 }
 
 export const authSlice = createSlice({
@@ -22,8 +25,9 @@ export const authSlice = createSlice({
     logout: (state: IAuthState) => {
       state.error = false;
       state.loading = false;
-      state.status = 'success';
-      state.message = `You're logged out!`;
+      state.status = 'error';
+      state.message = `You're logged out as your session is expired!`;
+      localStorage.removeItem('token');
     }
   },
   extraReducers(builder) {
@@ -33,6 +37,8 @@ export const authSlice = createSlice({
         state.loading = false;
         state.status = 'success';
         state.message = payload.message;
+        state.token = payload.token
+        localStorage.setItem('token', payload.token)
       })
       .addCase(adminLogin.pending, (state: IAuthState) => {
         state.loading = true;
