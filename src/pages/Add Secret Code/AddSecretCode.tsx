@@ -35,6 +35,7 @@ export default function AddSecretCode() {
   const formDisclosure = useDisclosure();
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [reRender, setReRender] = useState(0);
 
   const { data, status, message } = useAppSelector((state) => state?.secret);
 
@@ -52,7 +53,7 @@ export default function AddSecretCode() {
     {
       name: "Valid Upto",
       selector: (row: ISecretCodeBody) =>
-        moment(row.expiryTime).format("DD-MM-yyyy"),
+        moment(row.expiryTime).format("DD-MM-yyyy hh:mm A"),
     },
     {
       name: "Delete",
@@ -76,6 +77,7 @@ export default function AddSecretCode() {
     );
     if (response.meta.requestStatus === "fulfilled") {
       toast("Deleted", "Delete successfully", "success");
+      setReRender((prev) => prev + 1);
     } else {
       toast("Ugh no!", message as string, "error");
     }
@@ -86,7 +88,7 @@ export default function AddSecretCode() {
 
   useEffect(() => {
     dispatch(getSecretCode());
-  }, []);
+  }, [reRender]);
 
   return (
     <Box>
@@ -102,7 +104,10 @@ export default function AddSecretCode() {
         onClose={formDisclosure.onClose}
         title="Add Secret Code"
       >
-        <SecretCodeForm onClose={formDisclosure.onClose} />
+        <SecretCodeForm
+          onClose={formDisclosure.onClose}
+          setReRender={setReRender}
+        />
       </FormModal>
       {status === "loading" ? (
         <Center>Loading....</Center>

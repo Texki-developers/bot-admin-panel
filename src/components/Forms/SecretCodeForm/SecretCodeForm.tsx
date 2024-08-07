@@ -9,7 +9,13 @@ import { ISecretCodeBody } from "../../../types/components/Forms/form.type";
 import { createSecretCode } from "../../../features/manageSecretCode/manageSecretCode.action";
 import { resetSecret } from "../../../features/manageSecretCode/manageSecretCode.slice";
 
-export default function SecretCodeForm({ onClose }: { onClose: any }) {
+export default function SecretCodeForm({
+  onClose,
+  setReRender,
+}: {
+  onClose: any;
+  setReRender: any;
+}) {
   const {
     register,
     handleSubmit,
@@ -24,6 +30,7 @@ export default function SecretCodeForm({ onClose }: { onClose: any }) {
     let response = await dispatch(createSecretCode({ body: data }));
     if (response?.meta?.requestStatus === "fulfilled") {
       onClose();
+      setReRender((prev: number) => prev + 1);
     }
   };
 
